@@ -1,9 +1,9 @@
-import './App.css';
+import Segment from "./components/Segment";
 
 function App() {
   return (
-    <div className="App">
-    
+    <div>
+    <Segment />
     </div>
   );
 }

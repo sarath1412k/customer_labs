@@ -1,0 +1,144 @@
+.seg-header{
+    background-color: #39aebc;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+.popup-container{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    height: 100vh;
+}
+.seg-header >span{
+    margin: auto 2rem;
+    font-size: 15px;
+    color: white;
+}
+.seg-save-btn{
+    border: 1px solid black;
+    color: black;
+    margin: 2rem 5rem;
+    height: 35px;
+    padding: 3px 10px;
+    font-size: 15px;
+    cursor: pointer;
+    background-color: white;
+}
+.segment-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+    padding: 1rem 1rem;
+    /* border: 1px solid black; */
+}
+.seg-name{
+    width: 80%;
+    height: 35px;
+    border: 1px solid grey;
+    margin: 1rem 0;
+}
+.seg-info{
+    width: 78%;
+    font-weight: 500;
+    font-size: 14px;
+}
+.traits-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.traits-classify{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: auto 1rem;
+}
+.user-traits-color{
+    background-color: rgb(4, 150, 4);
+    min-height: 13px;
+    min-width: 13px;
+    border-radius: 50%;
+}
+.group-traits-color{
+    background-color: rgb(194, 14, 14);
+    min-height: 13px;
+    min-width: 13px;
+    border-radius: 50%;
+}
+.ut-label{
+   font-size: 13px; 
+   font-weight: 500;
+   display: flex;
+   padding-bottom: 3px;
+   padding-left: 3px;
+}
+.schema-container{
+    border: 3px solid skyblue;
+    padding: 0rem .5rem;
+}
+
+.schema-element{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1rem 0rem;
+}
+.selected-schema{
+    height: 35px;
+    width: 380px;
+    margin: 0 .5rem;
+    padding-left: 10px;
+}
+.add-schema-link{
+    color: rgb(4, 150, 4);
+    margin: 1rem;
+    width: fit-content;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 2px;
+    cursor: pointer;
+}
+.add-schema-link-label{   
+    font-weight: 500;
+    padding: 2px;
+    border-bottom: 2px solid rgb(4, 150, 4);
+}
+.schema-add-container{
+    border: 0px solid black;
+    padding: 0 .7rem;
+}
+.remove-schema-btn{
+    height: 35px;
+    width: 35px;
+    font-size: 15px;
+    color: grey;
+    background-color: #f2fbf9;
+}
+.btn-group{
+    background-color: #f6f6f6;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0%;
+}
+.save-btn{
+    background-color: #41b494;
+    color:white;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 3px;
+    margin: auto 1rem;
+    cursor: pointer;
+}
+.cancel-btn{
+    background-color: white;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 3px;
+    font-weight: 500;
+    cursor: pointer;
+}
