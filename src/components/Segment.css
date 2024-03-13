@@ -1,13 +1,15 @@
+/* .container{
+    overflow-x: scroll;
+} */
 .seg-header{
     background-color: #39aebc;
-    height: 3.5rem;
+    min-height: 3.5rem;
     display: flex;
     align-items: center;
 }
 .popup-container{
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
     height: 100vh;
 }
 .seg-header >span{
@@ -31,13 +33,14 @@
     justify-content: flex-start;
     text-align: left;
     padding: 1rem 1rem;
-    /* border: 1px solid black; */
+    overflow-y: scroll;
+    height: 100%;
 }
 .seg-name{
     width: 80%;
-    height: 35px;
+    min-height: 35px;
     border: 1px solid grey;
-    margin: 1rem 0;
+    margin: .7rem 0;
 }
 .seg-info{
     width: 78%;
@@ -83,7 +86,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 1rem 0rem;
+    margin: .8rem 0rem;
 }
 .selected-schema{
     height: 35px;
@@ -118,12 +121,10 @@
 }
 .btn-group{
     background-color: #f6f6f6;
-    height: 4rem;
+    height: 7rem;
     display: flex;
     align-items: center;
     width: 100%;
-    position: fixed;
-    bottom: 0%;
 }
 .save-btn{
     background-color: #41b494;

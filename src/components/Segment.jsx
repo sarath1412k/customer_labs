@@ -1,14 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Segment.css'
 import PopUpModal from './PopUpModal'
 import { IoIosRemove } from "react-icons/io";
+import axios from 'axios';
 
 const Segment = () => {
     
+    const [show,setShow] = useState(false)
     const [segment,setSegment] = useState({segment_name:''})
     const [schemaValue,setSchemaValue] = useState('')
     const [selectedSchema,setSelectedSchema] = useState({})
+    const [choosenSchema,setChoosenSchema] = useState({})
+    const [schemaList,setSchemaList] = useState([])
     const [schema,setSchema] = useState([])
+
+    const [filteredOptions,setFilteredOptions] = useState ([])
 
 
     const schemaOptions = [
@@ -20,36 +26,107 @@ const Segment = () => {
         { label: 'City', value: 'city' },
         { label: 'State', value: 'state' },
     ];
-
-    const handleInputs = ({target}) => {
-        setSegment(target.value)
-    }
     
-    const selectShema = ({target}) => {
+
+    //filter the not selected schemas
+    useEffect(() => {
+        let filteredItems = schemaOptions.filter(option =>   !schema.some(item => Object.values(item)[0] === option.value)   );
+        setFilteredOptions(filteredItems)
+    },[schemaList])
+    
+   //  
+    const handleInputs = ({target}) => {
+        let name = target.name;
+        let value = target.value
+        setSegment(prev => ({...prev,[name]:value}))
+    }
+
+    // function for remove schema
+    const removeSchema = (index) => { 
+        const removedList = schemaList.filter((e,i) => i !== index)
+        setSchemaList(removedList)
+    }
+    //function to change schema
+    const changeSchema = (index,target) => {
         let value = target.value
         let selectedOption = schemaOptions.find(data => data.value === value)
+        console.log(selectedOption)
+        const updatedItems = [...schemaList.slice(0, index), selectedOption, ...schemaList.slice(index + 1)];
+          setSchemaList(updatedItems)
+          let schemaObject = {[selectedOption.label]:selectedOption.value}
+          const updatedSchema = [...schema.slice(0, index), schemaObject, ...schema.slice(index + 1)];
+          setSchema(updatedSchema)
+    }
+    //function to select the schema
+    const selectShema = ({target}) => {
+        let value = target.value
         setSchemaValue(value)
-        setSelectedSchema(selectedOption)
+        let selectedOption = schemaOptions.find(data => data.value === value)
+        setChoosenSchema(selectedOption)
+        let schemaObject = {[selectedOption.label]:selectedOption.value}        
+        setSelectedSchema(schemaObject)
     }
 
     const addSchemaFunc = () => {
-        console.log(selectedSchema)
-        let items = [...schema,selectedSchema]
-        console.log(items)
-        setSchema(items)
+        if(schemaValue !== ''){
+            let items = [...schema,selectedSchema]
+            let listItems = [...schemaList,choosenSchema]
+    
+            setSchemaList(listItems)
+            setSchema(items)
+            setSchemaValue('')
+            setSelectedSchema({})
+            setChoosenSchema({})
+        }
+        else{
+            alert('select the schema')
+        }
+   
     }
 
     const funcSave = () => {
-        console.log(schema)
+        if(segment.segment_name.trim() !== '' && schema.length > 1){
+            let data = {segment,schema:schema}
+            axios.post(`https://webhook.site/33de906a-962e-4673-8152-36aebc05fe66`,data,
+            {
+                headers:{'content-type':'application/json'}
+            })
+            .then(res => {
+                console.log(res)
+                func_cancel()
+            })
+            .catch((err) => {
+                console.log(err.response)
+            })
+        }
+        else{
+            if(segment.segment_name.trim() === ''){
+                alert('Please enter the Segment name')
+            }
+            if(schema.length < 1){
+                alert('Please add the schema')
+            }
+        }      
     }
+
+    const func_cancel = () => {
+        setShow(false)
+        setSelectedSchema({})
+        setChoosenSchema({})
+        setSegment({segment_name:''})
+        setSchema([])
+        setSchemaList([])
+        setFilteredOptions([])
+    }
+
 
   return (
     <div className='container'>
     <div className='seg-header'>
         <span>View Audience</span>
     </div>
-     <button className='seg-save-btn'>Save Segment</button>
-     <PopUpModal >
+     <button className='seg-save-btn' onClick={() => setShow(true)}>Save Segment</button>
+     <PopUpModal show={show} handleClose={() => setShow(false)} >
     <div className='popup-container'>
      <div className='seg-header'>
         <span>View Audience</span>
@@ -69,17 +146,23 @@ const Segment = () => {
                 </div>
         </div>
         <div className="schema-container">
-            {/* <div className="schema-element">
-            <div className='user-traits-color'></div>
-              <select className='selected-schema'>
-                   {schemaOptions.map((schema) => (
-              <option key={schema.value} value={schema.value}>
-                {schema.label}
-              </option>
-            ))}
-            </select>
-            <IoIosRemove className='remove-schema-btn' title='remove schema' />
-            </div> */}
+            {schemaList.map((data,index) => {
+                return(
+                    <div key={index} className="schema-element">
+                    <div className='user-traits-color'></div>
+                      <select className='selected-schema' onChange={({target}) => changeSchema(index,target)} value={data.value} >
+                        <option label={data.label}>{data.value}</option>
+                           {filteredOptions.map((schema,i) => (
+                      <option key={i} value={schema.value}>
+                        {schema.label}
+                      </option>
+                    ))}
+                    </select>
+                    <IoIosRemove className='remove-schema-btn' title='remove schema' onClick={() => removeSchema(index)} />
+                    </div>
+                )
+            })}
+     
       
         </div>
         <div className="schema-add-container">
@@ -99,7 +182,7 @@ const Segment = () => {
     </form>
     <div className='btn-group'>
             <button  className='save-btn' onClick={funcSave}>Save the Segment</button>
-            <button className='cancel-btn'>Cancel</button>
+            <button className='cancel-btn' onClick={func_cancel}>Cancel</button>
     </div>
     </div>
      </PopUpModal>
