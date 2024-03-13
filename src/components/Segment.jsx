@@ -86,7 +86,9 @@ const Segment = () => {
     //post the data webhook server
     const funcSave = () => {
         if(segment.segment_name.trim() !== '' && schema.length > 1){
-            let data = {segment,schema:schema}
+            
+            let data = {...segment,schema:schema}
+            console.log(data)
             axios.post(`https://webhook.site/33de906a-962e-4673-8152-36aebc05fe66`,data,
             {
                 headers:{'content-type':'application/json'}
