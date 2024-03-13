@@ -18,13 +18,13 @@ const Segment = () => {
 
 
     const schemaOptions = [
-        { label: 'First Name', value: 'first_name' },
-        { label: 'Last Name', value: 'last_name' },
-        { label: 'Gender', value: 'gender' },
-        { label: 'Age', value: 'age' },
-        { label: 'Account Name', value: 'account_name' },
-        { label: 'City', value: 'city' },
-        { label: 'State', value: 'state' },
+        { label: 'First Name', value: 'first_name',userTraits:true },
+        { label: 'Last Name', value: 'last_name',userTraits:true },
+        { label: 'Gender', value: 'gender',userTraits: false },
+        { label: 'Age', value: 'age',userTraits: false },
+        { label: 'Account Name', value: 'account_name',userTraits: true },
+        { label: 'City', value: 'city',userTraits: false },
+        { label: 'State', value: 'state',userTraits: false },
     ];
     
 
@@ -83,7 +83,7 @@ const Segment = () => {
         }
    
     }
-
+    //post the data webhook server
     const funcSave = () => {
         if(segment.segment_name.trim() !== '' && schema.length > 1){
             let data = {segment,schema:schema}
@@ -94,6 +94,7 @@ const Segment = () => {
             .then(res => {
                 console.log(res)
                 func_cancel()
+                alert('data saved successfullt')
             })
             .catch((err) => {
                 console.log(err.response)
@@ -133,7 +134,7 @@ const Segment = () => {
     </div>
     <form className='segment-form' >
         <label className='seg-info'>Enter the Name of the Segment</label>
-        <input className='seg-name' name='segment_name' type='text' onChange={handleInputs} value={segment.segment_name}/>
+        <input className='seg-name' name='segment_name' type='text' placeholder='Name of the segment' onChange={handleInputs} value={segment.segment_name}/>
         <p className='seg-info'>To save your segment, you need to add the schemas to build the query</p>
         <div className='traits-container'>
                 <div className='traits-classify'>
@@ -149,7 +150,9 @@ const Segment = () => {
             {schemaList.map((data,index) => {
                 return(
                     <div key={index} className="schema-element">
-                    <div className='user-traits-color'></div>
+                    {data.userTraits
+                     ? <div className='user-traits-color'></div> 
+                     : <div className='group-traits-color'></div> }
                       <select className='selected-schema' onChange={({target}) => changeSchema(index,target)} value={data.value} >
                         <option label={data.label}>{data.value}</option>
                            {filteredOptions.map((schema,i) => (
@@ -167,7 +170,7 @@ const Segment = () => {
         </div>
         <div className="schema-add-container">
         <div className="schema-element">
-        <div className='user-traits-color'></div>
+        <div className='default-traits-color'></div>
             <select className='selected-schema' name='schema' onChange={selectShema} value={schemaValue}>
                 <option style={{display:'none'}} value='' >Add schema to segment</option>
                    {schemaOptions.map((schema) => (

@@ -33,24 +33,26 @@
     justify-content: flex-start;
     text-align: left;
     padding: 1rem 1rem;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 100%;
 }
 .seg-name{
     width: 80%;
-    min-height: 35px;
+    min-height: 30px;
     border: 1px solid grey;
-    margin: .7rem 0;
+    margin: .5rem 0;
+    padding-left: 1rem;
 }
 .seg-info{
     width: 78%;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 13px;
 }
 .traits-container{
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    margin: 1.5rem 1rem;
 }
 .traits-classify{
     display: flex;
@@ -60,18 +62,24 @@
 }
 .user-traits-color{
     background-color: rgb(4, 150, 4);
-    min-height: 13px;
-    min-width: 13px;
+    min-height: 12px;
+    min-width: 12px;
     border-radius: 50%;
 }
 .group-traits-color{
     background-color: rgb(194, 14, 14);
-    min-height: 13px;
-    min-width: 13px;
+    min-height: 12px;
+    min-width: 12px;
+    border-radius: 50%;
+}
+.default-traits-color{
+    background-color: rgb(208, 199, 199);
+    min-height: 12px;
+    min-width: 12px;
     border-radius: 50%;
 }
 .ut-label{
-   font-size: 13px; 
+   font-size: 12px; 
    font-weight: 500;
    display: flex;
    padding-bottom: 3px;
@@ -89,7 +97,7 @@
     margin: .8rem 0rem;
 }
 .selected-schema{
-    height: 35px;
+    height: 33px;
     width: 380px;
     margin: 0 .5rem;
     padding-left: 10px;
@@ -98,7 +106,7 @@
     color: rgb(4, 150, 4);
     margin: 1rem;
     width: fit-content;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     padding: 2px;
     cursor: pointer;
@@ -113,11 +121,12 @@
     padding: 0 .7rem;
 }
 .remove-schema-btn{
-    height: 35px;
-    width: 35px;
+    min-height: 33px;
+    min-width: 33px;
     font-size: 15px;
     color: grey;
-    background-color: #f2fbf9;
+    background-color: #ece9e9d0;
+    border-radius: 2px;
 }
 .btn-group{
     background-color: #f6f6f6;
