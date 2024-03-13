@@ -127,6 +127,7 @@
     color: grey;
     background-color: #ece9e9d0;
     border-radius: 2px;
+    cursor: pointer;
 }
 .btn-group{
     background-color: #f6f6f6;

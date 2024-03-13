@@ -126,7 +126,7 @@ const Segment = () => {
     <div className='seg-header'>
         <span>View Audience</span>
     </div>
-     <button className='seg-save-btn' onClick={() => setShow(true)}>Save Segment</button>
+     <button className='seg-save-btn' onClick={() => setShow(true)}>Save segment</button>
      <PopUpModal show={show} handleClose={() => setShow(false)} >
     <div className='popup-container'>
      <div className='seg-header'>
